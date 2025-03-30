@@ -29,7 +29,7 @@
 |  console | https://nodejs.org/api/console.html#console |
 |  log | winston实例，日志会输出到日志文件内，verbose 方法会在 debug 开启时输出 |
 
-![plugin system](./assets/plugin.png)
+![plugin system](./assets/CleanShot%202025-03-30%20at%2018.27.31@2x.png)
 
 ### 基础插件
 

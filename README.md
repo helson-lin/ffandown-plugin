@@ -18,7 +18,7 @@
 
 The plugin is called before downloading. The address entered in ffandown will first enter the plugin system for matching (passing). If the plugin is matched, the address and plugin configuration information will be passed to the plugin's parser method. After the parser returns the resolved address, the ffadown downloader will be called to start downloading.
 
-![plugin system](./assets/plugin.png)
+![plugin system](./assets/CleanShot%202025-03-30%20at%2018.27.31@2x.png)
 
 
 
