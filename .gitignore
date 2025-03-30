@@ -1,0 +1,13 @@
+.DS_Store
+node_modules
+build
+
+
+*.idea
+.history
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?

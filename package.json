@@ -1,0 +1,95 @@
+{
+  "name": "bilibili",
+  "version": "0.0.1",
+  "description": "哔哩哔哩插件(支持直播和视频解析）",
+  "main": "main.js",
+  "type": "module",
+  "icon": "https://www.bilibili.com/favicon.ico",
+  "homepage": "https://github.com/helson-lin",
+  "settings": {
+    "cookie": {
+      "type": "input",
+      "value": "",
+      "require": true,
+      "label": "Cookie"
+    },
+    "quality": {
+      "type": "select",
+      "options": [
+        {
+          "label": "超高清 8K",
+          "value": "127"
+        },
+        {
+          "label": "杜比视界",
+          "value": "126"
+        },
+        {
+          "label": "真彩 HDR",
+          "value": "125"
+        },
+        {
+          "label": "超清 4K",
+          "value": "120"
+        },
+        {
+          "label": "高清 1080P60",
+          "value": "116"
+        },
+        {
+          "label": "高清 1080P+",
+          "value": "112"
+        },
+        {
+          "label": "高清 1080P",
+          "value": "80"
+        },
+        {
+          "label": "高清 720P60",
+          "value": "72"
+        },
+        {
+          "label": "高清 720P",
+          "value": "64"
+        },
+        {
+          "label": "清晰 480P",
+          "value": "32"
+        },
+        {
+          "label": "流畅 360P",
+          "value": "16"
+        },
+        {
+          "label": "极速 240P",
+          "value": "6"
+        }
+      ],
+      "require": true,
+      "label": "Max Quality",
+      "value": "116"
+    }
+  },
+  "author": "helsonlin",
+  "scripts": {
+    "dev": "node ./main.js",
+    "build": "node ./build.js",
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js"
+  },
+  "keywords": [
+    "ffandown",
+    "plugin"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "chalk": "^5.4.1",
+    "express": "^4.21.2",
+    "fs-extra": "^11.3.0",
+    "node-fetch": "^2.7.0"
+  },
+  "devDependencies": {
+    "@babel/preset-env": "^7.26.9",
+    "babel-jest": "^29.7.0",
+    "jest": "^29.7.0"
+  }
+}
