@@ -1,7 +1,3 @@
-Here's the English version of your README:
-
----
-
 # FFandown Plugin
 
 <p>First, please note that this is a demo specifically designed for developing the FFandown plugin. It does not support other systems.</p>
