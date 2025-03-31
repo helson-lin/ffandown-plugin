@@ -186,4 +186,4 @@ quality 的配置项是一个下拉框，options 是下拉框的选项，require
 
 ## 打包
 
-`npm run build` 打包插件，打包后的插件在 `build` 文件夹内, 打包后的插件可以上传到在线 oss 服务或者 github 的 release。
+`npm run build` 打包插件，打包后的插件在 `build` 文件夹内, 打包后的插件可以上传到在线 oss 服务或者利用 github 的 workflows 打包到 Release,目前该项目已经支持 github actions 自动打包，只需推送对应版本的 tag 即可自动构建。
