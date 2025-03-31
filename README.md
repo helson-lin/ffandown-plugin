@@ -1,6 +1,10 @@
+Here's the English version of your README:
+
+---
+
 # FFandown Plugin
 
-<p>Firstly, you need to know that this is a demo specifically designed for developing plugins for ffandown. It does not support other systems</p>
+<p>First, please note that this is a demo specifically designed for developing the FFandown plugin. It does not support other systems.</p>
 
 <p><a href="/README_ZH.md">
         <img alt="lang" style="height: 30px;" src="https://img.shields.io/badge/Lang-中文-brightgreen" />
@@ -8,29 +12,36 @@
        <img alt="GitHub forks" style="height: 30px;" src="https://img.shields.io/github/forks/helson-lin/ffandown-plugin">
 </a></p>
 
-
 ## Requirements
 
 - FFandown
 - Node 18+
 
-## Development
+## Development 
 
-The plugin is called before downloading. The address entered in ffandown will first enter the plugin system for matching (passing). If the plugin is matched, the address and plugin configuration information will be passed to the plugin's parser method. After the parser returns the resolved address, the ffadown downloader will be called to start downloading.
+The plugin is invoked before downloading begins. When a URL is entered in FFandown, it first goes through the plugin system's matching process (via the plugin's `match` method). If a match is found, the URL and plugin configuration information are passed to the plugin's `parser` method. After the `parser` returns the processed URL, FFandown's downloader begins downloading.
 
-![plugin system](./assets/CleanShot%202025-03-30%20at%2018.27.31@2x.png)
+Plugins run via Node's `vm` module and cannot access all Node modules. Only the following modules and functions are supported:
 
+| Module | Documentation |
+| ----------- | ----------- |
+| bcrypt | https://www.npmjs.com/package/bcrypt ^5.1.1 |
+| fetch | https://www.npmjs.com/package/node-fetch ^2 |
+| URL | https://nodejs.org/api/url.html#class-url |
+| URLSearchParams | https://nodejs.org/api/url.html#class-urlsearchparams |
+| console | https://nodejs.org/api/console.html#console |
+| log | Winston instance. Logs are output to log files, and `verbose` method outputs when debug is enabled |
 
+![Plugin System](./assets/CleanShot%202025-03-30%20at%2018.27.31@2x.png)
 
+### Basic Plugin Structure
 
-### Basic Plugin
+The basic plugin structure is as follows:
 
-The basic structure of a plugin is as follows:
-
-```javascript
+```js
 class Parser {
     match(url) {
-        // Return true if the URL matches
+        // return true if the url is matched
         return true;
     }
     async parser(url, options) {
@@ -48,13 +59,16 @@ class Parser {
 }
 ```
 
-A plugin is a class, and both the `match` and `parser` methods must be implemented.
-- The `match` method is used for URL matching.
-- Returning `true` from the `match` method indicates a successful match, and the `parser` method returns the parsed URL.
-- The `match` method takes a URL as its parameter.
+The plugin must be a class containing both `match` and `parser` methods.
 
-The `parser` method is used to parse the URL and must return an object with the following structure:
-```javascript
+**`match` Method:**
+- Used to match URLs
+- Returns `true` on successful match
+- Parameter: URL
+
+**`parser` Method:**
+- Parses the URL and must return an object with this structure:
+```js
 {
     url: string,
     audioUrl: string,
@@ -64,18 +78,16 @@ The `parser` method is used to parse the URL and must return an object with the 
     }]
 }
 ```
-- `url` is the video URL, and `audioUrl` is the audio URL. (Note: `audioUrl` is optional)
-- If both `url` and `audioUrl` are present, both video and audio will be downloaded and merged.
-- `headers` is an optional array of request headers, where each element is an object.
+- `url`: Video URL
+- `audioUrl`: Audio URL (optional)
+  - If both URL and audioUrl exist, both video and audio will be downloaded and merged
+- `headers`: Request headers (array of objects, optional)
 
-The `parser` method receives the URL and plugin configuration as parameters.
-Plugin configuration is set within the plugin system and will be passed to the plugin's `parser` method.
+The `parser` method receives the URL and plugin configuration as parameters. Plugin configurations are set in the plugin system.
 
 ### Plugin Configuration
 
-If the plugin requires configuration (e.g., for cookies), it must first be configured in the `settings` field of `package.json`.
-
-The structure of the `settings` field is as follows:
+If your plugin requires configuration (e.g., cookies), define it in the `settings` field of `package.json`:
 
 ```json
 {
@@ -90,53 +102,14 @@ The structure of the `settings` field is as follows:
             "type": "select",
             "options": [
                 {
-                    "label": "8K Ultra HD",
+                    "label": "Ultra HD 8K",
                     "value": "127"
                 },
                 {
                     "label": "Dolby Vision",
                     "value": "126"
                 },
-                {
-                    "label": "True Color HDR",
-                    "value": "125"
-                },
-                {
-                    "label": "4K Ultra HD",
-                    "value": "120"
-                },
-                {
-                    "label": "1080P 60FPS HD",
-                    "value": "116"
-                },
-                {
-                    "label": "1080P+",
-                    "value": "112"
-                },
-                {
-                    "label": "1080P HD",
-                    "value": "80"
-                },
-                {
-                    "label": "720P 60FPS HD",
-                    "value": "72"
-                },
-                {
-                    "label": "720P HD",
-                    "value": "64"
-                },
-                {
-                    "label": "480P Clear",
-                    "value": "32"
-                },
-                {
-                    "label": "360P Smooth",
-                    "value": "16"
-                },
-                {
-                    "label": "240P Fast",
-                    "value": "6"
-                }
+                // Other quality options...
             ],
             "require": true,
             "label": "Max Quality",
@@ -146,12 +119,27 @@ The structure of the `settings` field is as follows:
 }
 ```
 
-Each field under the `settings` object represents a configuration item for the plugin.
+Each field under `settings` represents a configuration item.
 
-For example, the current configuration includes two items: `cookie` and `quality`.
-- The `cookie` configuration is an input field, with `value` as the default, `require` indicating whether it is required, and `label` as the display text.
-- The `quality` configuration is a dropdown, with `options` as the dropdown choices, `require` indicating whether it is required, `label` as the display text, and `value` as the default.
+**Supported `type` values:**
+- `input`: Text input field
+- `select`: Dropdown menu
 
-The `type` field supports the following values:
-- `input` for an input field
-- `select` for a dropdown
+## Testing
+
+### Testing Plugins
+
+1. Modify the test URL in `parser.test.js` to match your plugin's target platform.
+2. Run `npm run test` to ensure all tests pass.
+
+### Adding New Plugins
+
+During development, use `npm run dev` to start the plugin. Then, in FFandown's plugin system, add a new plugin with the URL: `http://localhost:3312`.
+
+### Configuring Plugin Information
+
+![Plugin Configuration](./assets/Shot2025-03-March-Fr5VUkQh.png)
+
+## Building
+
+Run `npm run build` to package the plugin. The output will be in the `build` folder. The built plugin can be uploaded to online OSS services or GitHub Releases.

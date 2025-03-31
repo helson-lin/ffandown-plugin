@@ -2,8 +2,8 @@
 
 <p>首先，你需要知道这是一个专门为开发ffandown插件的 demo。它不支持其他系统</p>
 
-<p><a href="/README_ZH.md">
-        <img alt="lang" style="height: 30px;" src="https://img.shields.io/badge/Lang-中文-brightgreen" />
+<p><a href="/README.md">
+        <img alt="lang" style="height: 30px;" src="https://img.shields.io/badge/Lang-En-brightgreen" />
 </a><a href="https://github.com/helson-lin/ffandown-plugin">
        <img alt="GitHub forks" style="height: 30px;" src="https://img.shields.io/github/forks/helson-lin/ffandown-plugin">
 </a></p>
@@ -20,7 +20,7 @@
 
 插件是通过 node 的 vm 模块运行的，插件不可以调用所有的 node 的模块，仅支持以下几个模块和函数。
 
-| 模块 | 原包目录地址 |
+| 模块 | 模块文档 |
 | ----------- | ----------- |
 | bcrypt | https://www.npmjs.com/package/bcrypt ^5.1.1 |
 | fetch | https://www.npmjs.com/package/node-fetch ^2 |
