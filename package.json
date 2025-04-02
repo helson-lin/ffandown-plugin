@@ -1,6 +1,6 @@
 {
   "name": "bilibili",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "哔哩哔哩插件(支持直播和视频解析，如果不设置 cookie 只能下载 480p）",
   "main": "main.js",
   "type": "module",
