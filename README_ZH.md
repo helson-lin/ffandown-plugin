@@ -16,9 +16,13 @@
 
 ## 开发 
 
+> 不支持在脚本内引入其他的第三方模块
+
 插件是在下载之前调用的，在 ffandown 输入的地址，首先会进入插件系统匹配（通过插件的 match 方法匹配），如果匹配到了插件，那么会将地址和插件的配置信息传给插件的 parser 方法，等待 parser 返回解析后的地址之后，调用 ffandown 的下载器开始下载。
 
 插件是通过 node 的 vm 模块运行的，插件不可以调用所有的 node 的模块，仅支持以下几个模块和函数。
+
+`fs`、`path`模块只能操作 tmp（可执行文件目录） 文件夹，其他文件夹没有权限执行。
 
 | 模块 | 模块文档 |
 | ----------- | ----------- |
@@ -27,6 +31,8 @@
 |  URL | https://nodejs.org/api/url.html#class-url |
 |  URLSearchParams | https://nodejs.org/api/url.html#class-urlsearchparams |
 |  console | https://nodejs.org/api/console.html#console |
+|  fs | readFileSync、writeFileSync、existsSync、mkdirSync、readdirSync、unlinkSync、statSync、 |
+|  path | https://nodejs.org/api/path.html |
 |  log | winston实例，日志会输出到日志文件内，verbose 方法会在 debug 开启时输出 |
 
 ![plugin system](./assets/CleanShot%202025-03-30%20at%2018.27.31@2x.png)
@@ -93,10 +99,12 @@ url 是视频的地址，audioUrl 是音频的地址。(注意：audioUrl 是可
             "type": "input",
             "value": "",
             "require": true,
-            "label": "Cookie"
+            "label": "Cookie",
+            "placeholder": "请输入 cookie"
         },
         "quality": {
             "type": "select",
+            "placeholder": "请选择最高质量",
             "options": [
                 {
                 "label": "超高清 8K",

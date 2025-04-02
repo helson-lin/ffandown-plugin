@@ -128,7 +128,8 @@ class Parser {
         const videoData = await this.getVideoData(bvid, cid, options.cookie)
         // 支持的分辨率
         const accept_quality = videoData?.data?.accept_quality
-        const maxHeightQuality = accept_quality?.[0]
+        const quality = options?.quality
+        const maxHeightQuality = quality || accept_quality?.[0]
         if (!maxHeightQuality) throw new Error('can\'t get video data')
         const videos = videoData?.data?.dash?.video
         // 最大质量可能没有，那么直接获取最高分辨率的视频

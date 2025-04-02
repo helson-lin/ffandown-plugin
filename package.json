@@ -1,7 +1,7 @@
 {
   "name": "bilibili",
   "version": "0.0.1",
-  "description": "哔哩哔哩插件(支持直播和视频解析）",
+  "description": "哔哩哔哩插件(支持直播和视频解析，如果不设置 cookie 只能下载 480p）",
   "main": "main.js",
   "type": "module",
   "icon": "https://www.bilibili.com/favicon.ico",
@@ -11,7 +11,9 @@
       "type": "input",
       "value": "",
       "require": true,
-      "label": "Cookie"
+      "label": "Cookie",
+      "placeholder": "请输入 cookie",
+      "notice": "Cookie从 bilibili.com 的请求内获取，只需要保留SESSDATA=xxxx;部分"
     },
     "quality": {
       "type": "select",
@@ -66,7 +68,9 @@
         }
       ],
       "require": true,
-      "label": "Max Quality",
+      "label": "最高质量",
+      "placeholder": "请选择最高质量",
+      "notice": "视频下载会采用当前配置最高质量",
       "value": "116"
     }
   },
